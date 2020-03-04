@@ -1,3 +1,16 @@
+
+#Project Files Of Idea
+.idea/
+*.iml
+
+#Output Folder
+target/
+
+#Log Folder
+logs/
+~/
+
+
 # Compiled class file
 *.class
 
