@@ -1,15 +1,21 @@
 package cn.coderoom;
 
-import cn.coderoom.job.DataxJob;
+import cn.coderoom.job.BillReceiveableJob;
+import cn.coderoom.job.GatheringJob;
+import cn.coderoom.job.PaymentJob;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.util.Date;
 
-/**
- * Hello world!
- *
- */
+/** 
+ * 
+ * @class App
+ * @package cn.coderoom
+ * @author lim
+ * @email coderoom.cn@gmail.com
+ * @date 2020/3/6 11:59 
+*/ 
 public class App
 {
 
@@ -20,27 +26,54 @@ public class App
         // 1、创建调度器Scheduler
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();
         Scheduler scheduler = schedulerFactory.getScheduler();
-        // 2、创建JobDetail实例，并与PrintWordsJob类绑定(Job执行内容)
-        JobDetail jobDetail = JobBuilder.newJob(DataxJob.class)
-                .usingJobData("jobDetail1", "这个Job用来测试的")
-                .withIdentity("job1", "group1").build();
-        // 3、构建Trigger实例,每隔1s执行一次
+        // 2、创建JobDetail实例，并与Job类绑定(Job执行内容)
+        JobDetail gatheringJobDetail = JobBuilder.newJob(GatheringJob.class)
+                .usingJobData("gatheringJobDetail", "收款单数据同步定时任务")
+                .withIdentity("job1", "group").storeDurably() .build();
+        JobDetail paymentJobDetail = JobBuilder.newJob(PaymentJob.class)
+                .usingJobData("paymentJobDetail", "付款单数据同步定时任务")
+                .withIdentity("job2", "group").storeDurably() .build();
+        JobDetail billReceiveableJob = JobBuilder.newJob(BillReceiveableJob.class)
+                .usingJobData("billReceiveableJob", "应收票据数据同步定时任务")
+                .withIdentity("job3", "group").storeDurably().build();
+        // 3、构建Trigger实例
         Date startDate = new Date();
         startDate.setTime(startDate.getTime() + 1000);
 
         Date endDate = new Date();
         endDate.setTime(startDate.getTime() + 10000);
 
-        CronTrigger cronTrigger = TriggerBuilder.newTrigger().withIdentity("trigger1", "triggerGroup1")
-                .usingJobData("trigger1", "这是jobDetail1的trigger")
+        CronTrigger cronTriggerGathering = TriggerBuilder.newTrigger().withIdentity("trigger", "triggerGroup")
+                .usingJobData("trigger", "这是cronTriggerGathering的trigger")
                 .startNow()//立即生效
-                .startAt(startDate)
-                .endAt(endDate)
-                .withSchedule(CronScheduleBuilder.cronSchedule("*/5  *  *  *  *  ?"))
+                /*.startAt(startDate)
+                .endAt(endDate)*/
+                .withSchedule(CronScheduleBuilder.cronSchedule("*/30  *  *  *  *  ?"))
+                .build();
+        CronTrigger cronTriggerPayment = TriggerBuilder.newTrigger().withIdentity("trigger1", "triggerGroup")
+                .usingJobData("trigger1", "这是cronTriggerPayment的trigger")
+                .startNow()//立即生效
+                /*.startAt(startDate)
+                .endAt(endDate)*/
+                .withSchedule(CronScheduleBuilder.cronSchedule("*/30  *  *  *  *  ?"))
+                .build();
+        CronTrigger cronTriggerBill = TriggerBuilder.newTrigger().withIdentity("trigger2", "triggerGroup")
+                .usingJobData("trigger2", "这是cronTriggerBill的trigger")
+                .startNow()//立即生效
+                /*.startAt(startDate)
+                .endAt(endDate)*/
+                .withSchedule(CronScheduleBuilder.cronSchedule("*/30  *  *  *  *  ?"))
                 .build();
 
         //4、执行
-        scheduler.scheduleJob(jobDetail, cronTrigger);
+        /*scheduler.addJob(gatheringJobDetail,true);
+        scheduler.addJob(paymentJobDetail,true);
+        scheduler.addJob(billReceiveableJob,true);*/
+
+        scheduler.scheduleJob(gatheringJobDetail,cronTriggerGathering);
+        scheduler.scheduleJob(paymentJobDetail,cronTriggerPayment);
+        scheduler.scheduleJob(billReceiveableJob,cronTriggerBill);
+
         System.out.println("--------scheduler start ! ------------");
         scheduler.start();
         System.out.println("--------scheduler shutdown ! ------------");

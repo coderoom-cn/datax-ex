@@ -27,13 +27,29 @@
     </dependency>
     <dependency>
       <groupId>com.alibaba.datax</groupId>
-      <artifactId>streamreader</artifactId>
+      <artifactId>oraclereader</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.alibaba.datax</groupId>
-      <artifactId>streamwriter</artifactId>
+      <artifactId>mysqlwriter</artifactId>
       <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>11.2.0.3</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/src/main/lib/ojdbc6-11.2.0.3.jar</systemPath>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>5.1.5</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->

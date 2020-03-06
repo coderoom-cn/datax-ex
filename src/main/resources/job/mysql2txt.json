@@ -1,0 +1,44 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "byte":10485760
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "root",
+            "password": "root",
+            "connection": [
+              {
+                "querySql": [
+                  "SELECT ip,port FROM ip",
+                  "SELECT * FROM t_authors"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://127.0.0.1:3306/88gou"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "txtfilewriter",
+          "parameter": {
+            "path": "E:/Documents",
+            "fileName": "luohw",
+            "writeMode": "truncate",
+            "dateFormat": "yyyy-MM-dd"
+          }
+        }
+      }
+    ]
+  }
+}

@@ -12,7 +12,15 @@ import org.quartz.JobExecutionException;
 
 import java.util.Date;
 
-public class DataxJob implements Job {
+/**
+ *  收款单数据同步定时任务
+ * @class GatheringJob 
+ * @package cn.coderoom.job
+ * @author lim
+ * @email coderoom.cn@gmail.com
+ * @date 2020/3/6 11:43 
+*/ 
+public class GatheringJob implements Job {
 
     private static final Log log = LogFactory.get();
 
@@ -26,14 +34,19 @@ public class DataxJob implements Job {
         log.info("This is {} log", Level.INFO);
         log.info("Start sync time {}", startTime.toString());
         log.info("End sync time {}", DateUtil.formatDateTime(now));
-        String[] datxArgs = {"-job", getCurrentClasspath() + "/job/oracle2txt.json", "-mode", "standalone", "-jobid", "-1"};
+        String[] datxArgs = {"-job", getCurrentClasspath() + "/job/oracle2mysqlgathering.json", "-mode", "standalone", "-jobid", "-1"};
         try {
             Engine.entry(datxArgs);
+
+            // TODO 通知业务系统
         } catch (Throwable e) {
             e.printStackTrace();
-            log.error(e,"This is {} log", Level.ERROR);
-            //LOG.error("采集处理异常！{}", e.getMessage());
-            //throw new DataXException("采集处理出现异常，原因：" + e.getMessage(), e);
+            log.error(e,"This is GatheringJob {} log", Level.ERROR);
+            // TODO 异常处理方案
+            //JobExecutionException e2 = new JobExecutionException(e);
+            // 是否立即重新触发任务？true
+            //e2.setRefireImmediately(true);
+            //throw e2;
         }
 
     }

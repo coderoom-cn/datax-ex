@@ -1,0 +1,45 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "byte":10485760
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "oraclereader",
+          "parameter": {
+            "username": "zjmi",
+            "password": "zjmikingdee",
+            "connection": [
+              {
+                "querySql": [
+                  "select  t3.FNUMBER  as 公司编码, t3.FName_l2 as 公司名称, t4.FNUMBER as 部门编码, t4.FName_l2 as 部门名称, t1.FNUMBER as 单据编号, t1.FBIZDATE as 单据日期, t5.FNUMBER as 往来户类型编码, t5.FName_l2 as 往来户类型名称, t6.Fnumber as 客户编码, t6.FName_l2 as 客户名称, t7.Fnumber as 供应商编码, t7.FName_l2 as 供应商名称, t8.FNumber as 收款类型编码, t8.FName_l2 as 收款类型编码, t9.FNumber as 付款方式编码, t9.FName_l2 as 付款方式名称, t10.Fnumber as 币别编码, t10.FName_l2 as 币别名称, t1.FActRecAmt as 实收金额合计, t1.FExchangeRate as 汇率, t11.FNumber as 收款科目编码, t11.FLONGNAME_L2 as 收款科目名称, t12.Fnumber as 收款账户编码, t12.Fname_l2 as 收款账户名称, t13.Fnumber as 结算方式编码, t13.Fname_l2 as 结算方式名称, t14.Fnumber as 业务种类编码, t14.Fname_l2 as 业务种类名称, t15.Fnumber as 收款银行编码, t15.Fname_l2 as 收款银行名称, t1.FSettlementNumber as 结算号, t1.FPayerAccountNumber as 付款银行, t1.FPayerAccountBank as 付款账号, t16.Fnumber as 人员编码, t16.Fname_l2 as 人员名称, t1.FDESCRIPTION as 摘要, t1.FBillStatus as 单据状态, t17.Fnumber as 分录收款类型编码, t17.Fname_l2 as 分录收款类型名称, t2.FAmount as 应收金额, t2.FLocalAmount as 应收本位币金额, t2.FRebate as 现金折扣, t2.FRebateLocAmt as 折扣本位币, t2.FActualAmt as 实收金额, t2.FActualLocAmt as 实收本位币金额, t2.FRemark as 备注, t2.FProjectID as 项目号, t2.FTrackNumber as 跟踪号, t2.FContractNumber as 合同号 from T_CAS_ReceivingBill t1 inner join T_CAS_ReceivingBillEntry t2 on t1.Fid = t2.FRECEIVINGBILLID left join T_ORG_COMPANY t3 on t3.Fid = t1.FCOMPANYID left join T_ORG_Admin t4 on t4.Fid = t1.FADMINORGUNITID left join T_BD_AsstActType t5 on t5.Fid = t1.FPayerTypeID left join T_BD_CUSTOMER t6 on t6.Fid = t1.FPayerID left join T_BD_SUPPLIER t7 on t7.Fid = t1.FPayerID left join T_CAS_ReceivingBillType t8 on t8.fid = t1.FRecBillTypeID left join T_BD_PaymentType t9 on t9.Fid = t1.FPaymentTypeID left join T_BD_Currency t10 on t10.fid = t1.FCURRENCYID left join T_BD_AccountView t11 on t11.Fid = t1.FPayeeAccountID left join T_BD_AccountBanks t12 on t12.fid = t1.FPayeeAccountBankID left join T_BD_SettlementType t13 on t13.fid = t1.FSettlementTypeID left join T_FS_SettBizType t14 on t14.fid = t1.FBizTypeID left join T_BD_Bank t15 on t15.fid = t1.FPayeeBankID left join T_BD_PERSON t16 on t16.fid = t1.FPERSONID left join T_CAS_ReceivingBillType t17 on t17.fid = t2.FRecBillTypeID where t1.FLastUpdateTime >= TO_DATE('${TODAY}','YYYY-MM-DD HH24:MI:SS')  and t1.FLastUpdateTime < TO_DATE('2020-02-01 00:00:00','YYYY-MM-DD HH24:MI:SS')  and t1.FBillStatus ='14' order by t1.FCOMPANYID,t1.FNUMBER  --收款单",
+                  "select  t3.FNUMBER  as 公司编码, t3.FName_l2 as 公司名称, t4.FNUMBER as 部门编码, t4.FName_l2 as 部门名称, t18.FName_l2 as  成本中心,  t1.FNUMBER as 单据编号, t1.FBizDate as 业务日期, t5.FNUMBER as 往来户类型编码, t5.FName_l2 as 往来户类型名称, t6.Fnumber as 客户编码, t6.FName_l2 as 客户名称, t7.Fnumber as 供应商编码, t7.FName_l2 as 供应商名称, t8.FNumber as 付款类型编码, t8.FName_l2 as 付款类型编码, t9.FNumber as 付款方式编码, t9.FName_l2 as 付款方式名称, t10.Fnumber as 币别编码, t10.FName_l2 as 币别名称, t1.FActualPayAmount as 实付金额合计, t1.FExchangeRate as 汇率, t11.FNumber as 付款科目编码, t11.FLONGNAME_L2 as 付款科目名称, t12.Fnumber as 付款账户编码, t12.Fname_l2 as 付款账户名称, t13.Fnumber as 结算方式编码, t13.Fname_l2 as 结算方式名称, t14.FNumber as 对方科目编码, t14.FLONGNAME_L2 as 对方科目名称, t15.Fnumber as 付款银行编码, t15.Fname_l2 as 付款银行名称, t1.FPayeeBank as 收款银行, t1.FPayeeAccountBank as 收款账户, t1.FBANKNUMBER as 收款行行号, t16.Fnumber as 人员编码, t16.Fname_l2 as 人员名称, t1.FDESCRIPTION as 摘要, t1.FBillStatus as 单据状态, t1.FFiVouchered as 是否已生成凭证, t2.FAmount as 应付金额, t2.FLocalAmount as 应付本位币金额, t2.FRebate as 现金折扣, t2.FRebateLocAmt as 折扣本位币, t2.FActualAmt as 实付金额, t2.FActualLocAmt as 实付本位币金额, t2.FRemark as 备注, t2.FProjectID as 项目号, t2.FContractNumber as 合同号 from T_CAS_PaymentBill t1	 inner join T_CAS_PaymentBillEntry t2 on t1.Fid = t2.FPaymentBillID left join T_ORG_COMPANY t3 on t3.Fid = t1.FCOMPANYID left join T_ORG_Admin t4 on t4.Fid = t1.FADMINORGUNITID left join T_BD_AsstActType t5 on t5.Fid = t1.FPayeeTypeID left join T_BD_CUSTOMER t6 on t6.Fid = t1.FPayeeID left join T_BD_SUPPLIER t7 on t7.Fid = t1.FPayeeID left join T_CAS_PaymentBillType t8 on t8.fid = t1.FPayBillTypeID left join T_BD_PaymentType t9 on t9.Fid = t1.FPaymentTypeID left join T_BD_Currency t10 on t10.fid = t1.FCURRENCYID left join T_BD_AccountView t11 on t11.Fid = t1.FPayerAccountID left join T_BD_AccountBanks t12 on t12.fid = t1.FPayerAccountBankID left join T_BD_SettlementType t13 on t13.fid = t1.FSettlementTypeID left join T_BD_AccountView t14 on t14.Fid = t1.FOppAccountID left join T_BD_Bank t15 on t15.fid = t1.FPayerBankID left join T_BD_PERSON t16 on t16.fid = t1.FPERSONID left join T_ORG_CostCenter t18 on t18.fid=t1.FCostCenterID where t1.FLastUpdateTime >= TO_DATE('2020-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS') and t1.FLastUpdateTime < TO_DATE('2020-02-01 00:00:00','YYYY-MM-DD HH24:MI:SS') and t1.FBillStatus ='15' order by t1.FCOMPANYID,t1.FNUMBER  --付款单",
+                  "select  t2.FNUMBER  as 公司编码, t2.FName_l2 as 公司名称, case when t1.FBillMedium=1 then '纸质' when t1.FBillMedium=2 then '电子' end as 票据种类, t3.FName_l2 as 票据类型, case when t1.FBillState=0 then '保存' when t1.FBillState=1 then '登记' when t1.FBillState=2 then '对外背书' when t1.FBillState=3 then '贴现' when t1.FBillState=4 then '收款' when t1.FBillState=7 then '对内背书' when t1.FBillState=8 then '审批' when t1.FBillState=9 then '作废' when t1.FBillState=10 then '转贷款' when t1.FBillState=11 then '入池质押' when t1.FBillState=12 then '入池托管' end as 票据状态, t1.FIssuesDate  as 出票日期, t1.FNumber as 单据编号, t1.FDraftNumber as 票据号码, case when t1.FIsNoUsed=1 then '是' when t1.FIsNoUsed=0 then '否' end as 是否一手票据, t1.FDrawerName as 出票人全称, t1.FDrawerAccountName as 出票人账号, t1.FDrawerBankName  as 出票人开户银行, t1.FPayeeName as 收款人全称, t1.FPayeeAccountName  as 收款人账号, t1.FPayeeBankName as 收款人银行, t4.Fnumber as 币别编码, t4.FName_l2 as 币别名称, t1.FBillAmt as 票据金额, t1.FExpiredDate as 汇票到期日, t1.FTakeDate as 收票日期, t1.FDeliverName as 交票人全称, t5.FNUMBER as 部门编码, t5.FName_l2 as 部门名称, t1.FTransferDate  as 转出日期, t1.FPeriod as 票据期限, t1.FDiscountRate as 收款月贴现率, t1.FDiscount as 贴现息, case when t1.FIsTrustee=1 then '是' when t1.FIsTrustee=0 then '否' end as 是否托管, t3.FName_l2 as 票据类型, case when t1.FIsPledge=1 then '是' when t1.FIsPledge=0 then '否' end as 是否质押, case when t1.FIsDisPledge=1 then '是' when t1.FIsDisPledge=0 then '否' end as 是否撤押, case when t1.FIsCollect=1 then '是' when t1.FIsCollect=0 then '否' end as 是否托收, t1.FCollectNum as 托收帐号, t6.Fnumber as 托收银行编码, t6.Fname_l2 as 托收银行名称, t1.FDigest as 备注 from T_NT_ReceivableBill t1 left join T_ORG_Company t2 on t2.Fid = t1.FCompanyID left join T_NT_NTType t3 on t3.Fid = t1.FNtTypeID left join T_BD_Currency t4 on t4.Fid = t1.FCurrencyID left join T_ORG_Admin t5 on t5.Fid = t1.FDepartmentID left join T_BD_Bank t6 on t6.Fid = t1.FCollectBankID where t1.FLastUpdateTime >= TO_DATE('2020-01-01 00:00:00','YYYY-MM-DD HH24:MI:SS') and t1.FLastUpdateTime < TO_DATE('2020-02-01 00:00:00','YYYY-MM-DD HH24:MI:SS')  and  t1.FTakeDate <SYSDATE  and  t1.FBillState=1 order by t1.FCOMPANYID,t1.FNUMBER  --应收票据"
+                ],
+                "jdbcUrl": [
+                  "jdbc:oracle:thin:@192.168.250.50:1521:orcl"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "txtfilewriter",
+          "parameter": {
+            "path": "E:/Documents",
+            "fileName": "luohw",
+            "writeMode": "truncate",
+            "dateFormat": "yyyy-MM-dd"
+          }
+        }
+      }
+    ]
+  }
+}

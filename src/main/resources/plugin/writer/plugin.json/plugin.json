@@ -1,10 +1,6 @@
 {
-  "name": "streamwriter",
-  "class": "com.alibaba.datax.plugin.writer.streamwriter.StreamWriter",
-  "description": {
-    "useScene": "only for developer test.",
-    "mechanism": "use datax framework to transport data to stream.",
-    "warn": "Never use it in your real job."
-  },
+  "name": "mysqlwriter",
+  "class": "com.alibaba.datax.plugin.writer.mysqlwriter.MysqlWriter",
+  "description": "useScene: prod. mechanism: Jdbc connection using the database, execute insert sql. warn: The more you know about the database, the less problems you encounter.",
   "developer": "alibaba"
 }
