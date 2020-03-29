@@ -1,10 +1,10 @@
 
 #Project Files Of Idea
-.idea/
+.idea/*.xml
 *.iml
-
+.idea/workspace.xml
 #Output Folder
-target/
+/target/
 
 #Log Folder
 logs/

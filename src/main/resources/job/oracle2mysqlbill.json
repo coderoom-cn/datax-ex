@@ -32,8 +32,8 @@
           "name": "mysqlwriter",
           "parameter": {
             "writeMode": "insert",
-            "username": "zmee_fi_dev",
-            "password": "zmee_fi_dev@14",
+            "username": "",
+            "password": "@14",
             "column": [
               "COMPANY_CODE",
               "COMPANY_NAME",
