@@ -1,5 +1,6 @@
 package cn.coderoom.job;
 
+import cn.coderoom.util.PropertiesUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.log.Log;
@@ -27,14 +28,14 @@ public class BillReceiveableJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
-        System.setProperty("datax.home", getCurrentClasspath());
+        System.setProperty("datax.home", PropertiesUtil.getProjectConfigPath());
         Date now = new Date();
         DateTime startTime = DateUtil.offsetDay(now, 1);
         System.setProperty("TODAY", startTime.toString());
         log.info("This is {} log", Level.INFO);
         log.info("Start sync time {}", startTime.toString());
         log.info("End sync time {}", DateUtil.formatDateTime(now));
-        String[] datxArgs = {"-job", getCurrentClasspath() + "/job/oracle2mysqlbill.json", "-mode", "standalone", "-jobid", "-1"};
+        String[] datxArgs = {"-job", PropertiesUtil.getProjectConfigPath() + "/job/oracle2mysqlbill.json", "-mode", "standalone", "-jobid", "-1"};
         try {
             Engine.entry(datxArgs);
 

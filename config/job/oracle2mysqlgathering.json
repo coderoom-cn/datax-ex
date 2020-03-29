@@ -1,0 +1,107 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "byte":10485760
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.02
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "oraclereader",
+          "parameter": {
+            "username": "zjmi",
+            "password": "zjmikingdee",
+            "connection": [
+              {
+                "querySql": [
+                  "select  t3.FNUMBER  as COMPANY_CODE, t3.FName_l2 as COMPANY_NAME, t4.FNUMBER as ORG_CODE, t4.FName_l2 as ORG_NAME, t1.FNUMBER as GATHERING_NO, t1.FBIZDATE as PAYEE_DATE, t5.FNUMBER as PAYEE_CATEGORY, t5.FName_l2 as PAYEE_CATEGORY_NAME, t6.Fnumber as CUSTOMER_CODE, t6.FName_l2 as CUSTOMER_NAME, t7.Fnumber as SUPPLIER_CODE, t7.FName_l2 as SUPPLIER_NAME, t8.FNumber as RECEIVABLES_TYPE, t8.FName_l2 as AMT_DESC, t9.FNumber as PAY_TYPE, t9.FName_l2 as PAY_TYPE_NAME, t10.Fnumber as CURRENCY_CODE, t10.FName_l2 as CURRENCY_NAME, t1.FActRecAmt as PAYEE_AMT, t1.FExchangeRate as RMB_RATE, t11.FNumber as DEPOSIT_ACCOUNT_RECEIVING_BANK, t11.FLONGNAME_L2 as RECEIVABLES, t12.Fnumber as RECEIVABLES_ACCOUNT_CODE, t12.Fname_l2 as RECEIVABLES_ACCOUNT_NAME, t13.Fnumber as PAYEE_TYPE, t13.Fname_l2 as PAYEE_TYPE_NAME, t14.Fnumber as BUSINESS_TYPE, t14.Fname_l2 as BUSINESS_TYPE_NAME, t15.Fnumber as PEYEE_ACCOUNT_LABEL, t15.Fname_l2 as PAYEE_BANK_ADDRESS, t1.FSettlementNumber as SETTLEMENT_NO, t1.FPayerAccountNumber as PAY_BANK_ADDRESS, t1.FPayerAccountBank as PAY_COMPANY_CODE, t16.Fnumber as CREATED_BY_CODE, t16.Fname_l2 as CREATED_BY, t1.FDESCRIPTION as REMARK, t1.FBillStatus as PAYEE_STATUS, t17.Fnumber as ENTRY_COLLECTION_TYPE, t17.Fname_l2 as ENTRY_COLLECTION_TYPE_NAME, t2.FAmount as PAYEE_AMT_ITEM, t2.FLocalAmount as PAYEE_AMT_BASE, t2.FRebate as DISCOUNT, t2.FRebateLocAmt as BASE_DISCOUNT, t2.FActualAmt as ACTUAL_PAYMENT, t2.FActualLocAmt as ACTUAL_PAYMENT_BASE, t2.FRemark as REMARK_A, t2.FProjectID as ITEM_NO, t2.FTrackNumber as TRACKING_NO, t2.FContractNumber as CONTRACT_NO from T_CAS_ReceivingBill t1 inner join T_CAS_ReceivingBillEntry t2 on t1.Fid = t2.FRECEIVINGBILLID left join T_ORG_COMPANY t3 on t3.Fid = t1.FCOMPANYID left join T_ORG_Admin t4 on t4.Fid = t1.FADMINORGUNITID left join T_BD_AsstActType t5 on t5.Fid = t1.FPayerTypeID left join T_BD_CUSTOMER t6 on t6.Fid = t1.FPayerID left join T_BD_SUPPLIER t7 on t7.Fid = t1.FPayerID left join T_CAS_ReceivingBillType t8 on t8.fid = t1.FRecBillTypeID left join T_BD_PaymentType t9 on t9.Fid = t1.FPaymentTypeID left join T_BD_Currency t10 on t10.fid = t1.FCURRENCYID left join T_BD_AccountView t11 on t11.Fid = t1.FPayeeAccountID left join T_BD_AccountBanks t12 on t12.fid = t1.FPayeeAccountBankID left join T_BD_SettlementType t13 on t13.fid = t1.FSettlementTypeID left join T_FS_SettBizType t14 on t14.fid = t1.FBizTypeID left join T_BD_Bank t15 on t15.fid = t1.FPayeeBankID left join T_BD_PERSON t16 on t16.fid = t1.FPERSONID left join T_CAS_ReceivingBillType t17 on t17.fid = t2.FRecBillTypeID where t1.FLastUpdateTime >= TO_DATE('2019-10-01 00:00:00','YYYY-MM-DD HH24:MI:SS')  and t1.FLastUpdateTime < TO_DATE('2020-03-01 00:00:00','YYYY-MM-DD HH24:MI:SS')  and t1.FBillStatus ='14' order by t1.FCOMPANYID,t1.FNUMBER  -----收款单查询sql"
+                ],
+                "jdbcUrl": [
+                  "jdbc:oracle:thin:@192.168.250.50:1521:orcl"
+                ]
+              }
+            ]
+          }
+        },
+        "writer": {
+          "name": "mysqlwriter",
+          "parameter": {
+            "writeMode": "insert",
+            "username": "zmee_fi_dev",
+            "password": "zmee_fi_dev@14",
+            "column": [
+              "COMPANY_CODE",
+              "COMPANY_NAME",
+              "ORG_CODE",
+              "ORG_NAME",
+              "GATHERING_NO",
+              "PAYEE_DATE",
+              "PAYEE_CATEGORY",
+              "PAYEE_CATEGORY_NAME",
+              "CUSTOMER_CODE",
+              "CUSTOMER_NAME",
+              "SUPPLIER_CODE",
+              "SUPPLIER_NAME",
+              "RECEIVABLES_TYPE",
+              "AMT_DESC",
+              "PAY_TYPE",
+              "PAY_TYPE_NAME",
+              "CURRENCY_NAME",
+              "CURRENCY_CODE",
+              "PAYEE_AMT",
+              "RMB_RATE",
+              "DEPOSIT_ACCOUNT_RECEIVING_BANK",
+              "RECEIVABLES",
+              "RECEIVABLES_ACCOUNT_CODE",
+              "RECEIVABLES_ACCOUNT_NAME",
+              "PAYEE_TYPE",
+              "PAYEE_TYPE_NAME",
+              "BUSINESS_TYPE",
+              "BUSINESS_TYPE_NAME",
+              "PEYEE_ACCOUNT_LABEL",
+              "PAYEE_BANK_ADDRESS",
+              "SETTLEMENT_NO",
+              "PAY_BANK_ADDRESS",
+              "PAY_COMPANY_CODE",
+              "CREATED_BY_CODE",
+              "CREATED_BY",
+              "REMARK",
+              "PAYEE_STATUS",
+              "ENTRY_COLLECTION_TYPE",
+              "ENTRY_COLLECTION_TYPE_NAME",
+              "PAYEE_AMT_ITEM",
+              "PAYEE_AMT_BASE",
+              "DISCOUNT",
+              "BASE_DISCOUNT",
+              "ACTUAL_PAYMENT",
+              "ACTUAL_PAYMENT_BASE",
+              "REMARK_A",
+              "ITEM_NO",
+              "TRACKING_NO",
+              "CONTRACT_NO"
+            ],
+            "session": [
+              "set session sql_mode='ANSI'"
+            ],
+            "preSql": [
+              "delete from mi_sync_jd_gathering"
+            ],
+            "connection": [
+              {
+                "jdbcUrl": "jdbc:mysql://rm-bp1g599la8r1u2876.mysql.rds.aliyuncs.com/zmee_financedb?useUnicode=true&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull",
+                "table": [
+                  "mi_sync_jd_gathering"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

@@ -3,6 +3,7 @@ package cn.coderoom;
 import cn.coderoom.job.BillReceiveableJob;
 import cn.coderoom.job.GatheringJob;
 import cn.coderoom.job.PaymentJob;
+import cn.hutool.http.HttpUtil;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
@@ -77,6 +78,12 @@ public class App
         System.out.println("--------scheduler start ! ------------");
         scheduler.start();
         System.out.println("--------scheduler shutdown ! ------------");
+
+    }
+
+    private void noticeSync(){
+
+        HttpUtil.createGet("");
 
     }
 }
