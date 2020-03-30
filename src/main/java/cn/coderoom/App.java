@@ -2,6 +2,7 @@ package cn.coderoom;
 
 import cn.coderoom.job.BillReceiveableJob;
 import cn.coderoom.job.GatheringJob;
+import cn.coderoom.job.HttpJob;
 import cn.coderoom.job.PaymentJob;
 import cn.hutool.http.HttpUtil;
 import org.quartz.*;
@@ -37,6 +38,11 @@ public class App
         JobDetail billReceiveableJob = JobBuilder.newJob(BillReceiveableJob.class)
                 .usingJobData("billReceiveableJob", "应收票据数据同步定时任务")
                 .withIdentity("job3", "group").storeDurably().build();
+
+        JobDetail httpJob = JobBuilder.newJob(HttpJob.class)
+                .usingJobData("httpJob", "数据请求处理同步定时任务")
+                .withIdentity("job4", "group").storeDurably().build();
+
         // 3、构建Trigger实例
         Date startDate = new Date();
         startDate.setTime(startDate.getTime() + 1000);
@@ -50,6 +56,7 @@ public class App
                 /*.startAt(startDate)
                 .endAt(endDate)*/
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 */1 * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
                 .build();
         CronTrigger cronTriggerPayment = TriggerBuilder.newTrigger().withIdentity("trigger1", "triggerGroup")
                 .usingJobData("trigger1", "这是cronTriggerPayment的trigger")
@@ -57,6 +64,7 @@ public class App
                 /*.startAt(startDate)
                 .endAt(endDate)*/
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 */1 * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
                 .build();
         CronTrigger cronTriggerBill = TriggerBuilder.newTrigger().withIdentity("trigger2", "triggerGroup")
                 .usingJobData("trigger2", "这是cronTriggerBill的trigger")
@@ -64,6 +72,16 @@ public class App
                 /*.startAt(startDate)
                 .endAt(endDate)*/
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 */1 * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
+                .build();
+
+        CronTrigger cronHttp = TriggerBuilder.newTrigger().withIdentity("trigger3", "triggerGroup")
+                .usingJobData("trigger3", "这是cronHttp的trigger")
+                .startNow()//立即生效
+                /*.startAt(startDate)
+                .endAt(endDate)*/
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 1 * * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
                 .build();
 
         //4、执行
@@ -74,6 +92,7 @@ public class App
         scheduler.scheduleJob(gatheringJobDetail,cronTriggerGathering);
         scheduler.scheduleJob(paymentJobDetail,cronTriggerPayment);
         scheduler.scheduleJob(billReceiveableJob,cronTriggerBill);
+        scheduler.scheduleJob(httpJob,cronHttp);
 
         System.out.println("--------scheduler start ! ------------");
         scheduler.start();
@@ -83,7 +102,7 @@ public class App
 
     private void noticeSync(){
 
-        HttpUtil.createGet("");
+        HttpUtil.createGet("http://busos.zmee.com.cn/zmeefund/sync/jd/syncData");
 
     }
 }

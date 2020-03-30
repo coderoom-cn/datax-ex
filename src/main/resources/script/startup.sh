@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_NAME=./datax-ex-jar-with-dependencies.jar
+APP_NAME=/data/datasync/datax/datax-ex.jar
 #使用说明，用来提示输入参数
 usage() {
     echo "Usage: sh app.sh [start|stop|restart|status]"
@@ -24,7 +24,7 @@ start(){
   if [ $? -eq 0 ]; then
     echo "${APP_NAME} is already running. pid=${pid}"
   else
-    nohup /data/docker/dockerfile/jdk1.8.0_201/bin/java -jar ${APP_NAME}  >app.out 2>&1 &
+    nohup /data/docker/dockerfile/jdk1.8.0_201/bin/java -Djava.ext.dirs=/data/datasync/datax/lib -jar ${APP_NAME}  >app.out 2>&1 &
     #nohup java -jar ${APP_NAME}  >app.out 2>&1 &
   fi
 }

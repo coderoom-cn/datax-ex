@@ -1,6 +1,5 @@
 package cn.coderoom.job;
 
-import cn.coderoom.util.PropertiesUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.log.Log;
@@ -28,14 +27,14 @@ public class BillReceiveableJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
-        System.setProperty("datax.home", PropertiesUtil.getProjectConfigPath());
+        System.setProperty("datax.home", getPath() );
         Date now = new Date();
         DateTime startTime = DateUtil.offsetDay(now, 1);
         System.setProperty("TODAY", startTime.toString());
         log.info("This is {} log", Level.INFO);
         log.info("Start sync time {}", startTime.toString());
         log.info("End sync time {}", DateUtil.formatDateTime(now));
-        String[] datxArgs = {"-job", PropertiesUtil.getProjectConfigPath() + "/job/oracle2mysqlbill.json", "-mode", "standalone", "-jobid", "-1"};
+        String[] datxArgs = {"-job", getPath() + "/job/oracle2mysqlbill.json", "-mode", "standalone", "-jobid", "-1"};
         try {
             Engine.entry(datxArgs);
 
@@ -61,5 +60,20 @@ public class BillReceiveableJob implements Job {
         return currentClasspath;
     }
 
+    //获取到该jar包所在目录
+    public String getPath() {
+
+        String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        if(System.getProperty("os.name").contains("dows"))
+        {
+            path = path.substring(1,path.length());
+        }
+        if(path.contains("jar"))
+        {
+            path = path.substring(0,path.lastIndexOf("."));
+            return path.substring(0,path.lastIndexOf("/"));
+        }
+        return path.replace("target/classes/", "");
+    }
 
 }

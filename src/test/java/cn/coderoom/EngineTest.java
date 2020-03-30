@@ -1,13 +1,11 @@
 package cn.coderoom;
 
-import com.alibaba.datax.common.exception.DataXException;
 import com.alibaba.datax.core.Engine;
-
-import static org.junit.Assert.*;
 
 public class EngineTest {
 
     public static void main(String[] args) {
+
         System.setProperty("datax.home", getCurrentClasspath());
         String[] datxArgs = {"-job", getCurrentClasspath() + "/job/stream2stream.json", "-mode", "standalone", "-jobid", "-1"};
         try {
@@ -29,6 +27,22 @@ public class EngineTest {
             currentClasspath = currentClasspath.substring(1);
         }
         return currentClasspath;
+    }
+
+    //获取到该jar包所在目录
+    public String getPath() {
+
+        String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        if(System.getProperty("os.name").contains("dows"))
+        {
+            path = path.substring(1,path.length());
+        }
+        if(path.contains("jar"))
+        {
+            path = path.substring(0,path.lastIndexOf("."));
+            return path.substring(0,path.lastIndexOf("/"));
+        }
+        return path.replace("target/classes/", "");
     }
 
 }
