@@ -32,8 +32,8 @@
           "name": "mysqlwriter",
           "parameter": {
             "writeMode": "insert",
-            "username": "zmee_fi_dev",
-            "password": "zmee_fi_dev@14",
+            "username": "zmee_fi",
+            "password": "zmee_fi_@18",
             "column": [
               "COMPANY_CODE",
               "COMPANY_NAME",
@@ -80,7 +80,7 @@
             ],
             "connection": [
               {
-                "jdbcUrl": "jdbc:mysql://rm-bp1g599la8r1u2876.mysql.rds.aliyuncs.com/zmee_financedb?useUnicode=true&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull",
+                "jdbcUrl": "jdbc:mysql://192.168.172.14:3306/zmee_financedb?useUnicode=true&characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull",
                 "table": [
                   "mi_sync_jd_bill_receiveable"
                 ]

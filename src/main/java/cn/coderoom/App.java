@@ -80,8 +80,8 @@ public class App
                 .startNow()//立即生效
                 /*.startAt(startDate)
                 .endAt(endDate)*/
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 1 * * ?"))
-                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0 1 * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
                 .build();
 
         //4、执行
@@ -89,9 +89,9 @@ public class App
         scheduler.addJob(paymentJobDetail,true);
         scheduler.addJob(billReceiveableJob,true);*/
 
-        scheduler.scheduleJob(gatheringJobDetail,cronTriggerGathering);
-        scheduler.scheduleJob(paymentJobDetail,cronTriggerPayment);
-        scheduler.scheduleJob(billReceiveableJob,cronTriggerBill);
+        //scheduler.scheduleJob(gatheringJobDetail,cronTriggerGathering);
+        //scheduler.scheduleJob(paymentJobDetail,cronTriggerPayment);
+        //scheduler.scheduleJob(billReceiveableJob,cronTriggerBill);
         scheduler.scheduleJob(httpJob,cronHttp);
 
         System.out.println("--------scheduler start ! ------------");
