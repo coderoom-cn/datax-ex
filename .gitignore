@@ -1,8 +1,8 @@
 
 #Project Files Of Idea
-.idea/*.xml
-*.iml
-.idea/workspace.xml
+
+/.idea/
+
 #Output Folder
 /target/
 
