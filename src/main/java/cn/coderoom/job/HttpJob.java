@@ -1,5 +1,6 @@
 package cn.coderoom.job;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
@@ -21,6 +22,8 @@ public class HttpJob implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+
+        log.info("start HttpJob time is {}", DateUtil.now());
         HttpUtil.createGet("http://busos.zmee.com.cn/zmeefund/sync/jd/syncData");
     }
 
