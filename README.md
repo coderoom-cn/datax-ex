@@ -1,7 +1,10 @@
 # datax-ex
 datax 扩展程序
-jar包启动datax ，定时任务同步数据
+java启动datax ，定时任务增量同步数据。
 
+
+## 增量
+时间戳增量
 
 https://github.com/huzekang/springboot-datax
 

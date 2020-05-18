@@ -23,7 +23,6 @@ public class App
 
     public static void main( String[] args ) throws SchedulerException, InterruptedException
     {
-        System.out.println( "Hello World!" );
 
         // 1、创建调度器Scheduler
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();
@@ -55,24 +54,24 @@ public class App
                 .startNow()//立即生效
                 /*.startAt(startDate)
                 .endAt(endDate)*/
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 */1 * ?"))
-                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0 0/12 * * ? *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 */5 * * * ?"))
                 .build();
         CronTrigger cronTriggerPayment = TriggerBuilder.newTrigger().withIdentity("trigger1", "triggerGroup")
                 .usingJobData("trigger1", "这是cronTriggerPayment的trigger")
                 .startNow()//立即生效
                 /*.startAt(startDate)
                 .endAt(endDate)*/
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 */1 * ?"))
-                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0 0/12 * * ? *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 */5 * * * ?"))
                 .build();
         CronTrigger cronTriggerBill = TriggerBuilder.newTrigger().withIdentity("trigger2", "triggerGroup")
                 .usingJobData("trigger2", "这是cronTriggerBill的trigger")
                 .startNow()//立即生效
                 /*.startAt(startDate)
                 .endAt(endDate)*/
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 */1 * ?"))
-                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0 0/12 * * ? *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 */5 * * * ?"))
                 .build();
 
         CronTrigger cronHttp = TriggerBuilder.newTrigger().withIdentity("trigger3", "triggerGroup")
@@ -80,18 +79,19 @@ public class App
                 .startNow()//立即生效
                 /*.startAt(startDate)
                 .endAt(endDate)*/
-                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0 1 * * ?"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 */1 * * * ?"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0 1/12 * * ? *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 */5 * * * ?"))
                 .build();
 
         //4、执行
         /*scheduler.addJob(gatheringJobDetail,true);
         scheduler.addJob(paymentJobDetail,true);
         scheduler.addJob(billReceiveableJob,true);*/
+        //scheduler.addJob(httpJob,true);
 
-        //scheduler.scheduleJob(gatheringJobDetail,cronTriggerGathering);
-        //scheduler.scheduleJob(paymentJobDetail,cronTriggerPayment);
-        //scheduler.scheduleJob(billReceiveableJob,cronTriggerBill);
+        scheduler.scheduleJob(gatheringJobDetail,cronTriggerGathering);
+        scheduler.scheduleJob(paymentJobDetail,cronTriggerPayment);
+        scheduler.scheduleJob(billReceiveableJob,cronTriggerBill);
         scheduler.scheduleJob(httpJob,cronHttp);
 
         System.out.println("--------scheduler start ! ------------");

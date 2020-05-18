@@ -30,8 +30,9 @@ public class PaymentJob implements Job {
         System.setProperty("datax.home", getPath());
         log.info("datax.home is {} log", getPath());
         Date now = new Date();
-        DateTime startTime = DateUtil.offsetDay(now, 1);
-        System.setProperty("TODAY", startTime.toString());
+        DateTime startTime = DateUtil.offsetDay(now, -200);
+        System.setProperty("start_time", startTime.toString());
+        System.setProperty("end_time", DateUtil.formatDateTime(now));
         log.info("This is {} log", Level.INFO);
         log.info("Start sync time {}", startTime.toString());
         log.info("End sync time {}", DateUtil.formatDateTime(now));
