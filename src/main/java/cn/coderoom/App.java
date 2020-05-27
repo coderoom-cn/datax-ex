@@ -79,8 +79,8 @@ public class App
                 .startNow()//立即生效
                 /*.startAt(startDate)
                 .endAt(endDate)*/
-                //.withSchedule(CronScheduleBuilder.cronSchedule("0 0 1/12 * * ? *"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 */5 * * * ?"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 1/12 * * ? *"))
+                //.withSchedule(CronScheduleBuilder.cronSchedule("0 */5 * * * ?"))
                 .build();
 
         //4、执行
