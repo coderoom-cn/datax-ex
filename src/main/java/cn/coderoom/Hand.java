@@ -8,11 +8,11 @@ import cn.hutool.log.LogFactory;
 
 /** 
  * 
- * @class Hand 
+ * @class Hand
  * @package cn.coderoom
  * @author lim
  * @email coderoom.cn@gmail.com
- * @date 2020/5/27 14:19 
+ * @date 2020/5/27 14:28
 */ 
 public class Hand {
 
